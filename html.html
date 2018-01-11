@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+    img{
+      width:100%
+    }
+  </style>
+</head>
+<body>
+  <!-- <form action="http://127.0.0.1/upload" enctype="multipart/form-data" method="post">
+    <input type="text" name="name">
+    <input type="file"name="pic">
+    <button type="sublime">btn</button>
+  </form> -->
+
+
+  <input id="file" type="file" name="file">
+  <div>
+    <img id="file_img" src="" alt="">
+  </div>
+  <script>
+    var input  = document.getElementById("file");   // input file
+    input.onchange = function(){
+      console.log(this)
+        var file = this.files[0];
+            if(!!file){
+                var reader = new FileReader();
+                // 图片文件转换为base64
+                reader.readAsDataURL(file);
+                reader.onload = function(){
+                    // 显示图片
+                    document.getElementById("file_img").src = this.result;
+            }
+        }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+    img{
+      width:100%
+    }
+  </style>
+</head>
+<body>
+  <!-- <form action="http://127.0.0.1/upload" enctype="multipart/form-data" method="post">
+    <input type="text" name="name">
+    <input type="file"name="pic">
+    <button type="sublime">btn</button>
+  </form> -->
+
+
+  <input id="file" type="file" name="file">
+
+  <script>
+    var input  = document.getElementById("file");   // input file
+
+input.onchange = function(){
+    var file = this.files[0];
+        if(!!file){
+            var reader = new FileReader();
+            reader.readAsBinaryString(file);
+            reader.onload = function(){
+                var binary = this.result;
+                upload(binary);
+        }
+    }
+}
+
+//文件上传
+function upload(binary){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://127.0.0.1/upload");
+    xhr.overrideMimeType("application/octet-stream");
+    //直接发送二进制数据
+    if(xhr.sendAsBinary){
+        xhr.sendAsBinary(binary);
+    }else{
+        xhr.send(binary);
+    }
+    
+    // 监听变化
+    xhr.onreadystatechange = function(e){
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                // 响应成功       
+            }
+        }
+    }
+}
+  </script>
+</body>
+</html>
