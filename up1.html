@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <input type="file" id="file">
+    <input type="button" value="上传" id="upload">
+
+  </div>
+
+  <script>
+
+
+        var button = document.querySelector('#upload')
+        var fileinput = document.getElementById('file')
+        button.onclick = uploadFile
+         function uploadFile() {
+            var xhr = new XMLHttpRequest()
+            var formdata = new FormData()
+
+            var files = fileinput.files
+            if (!files[0]) {
+                alert('请先选择图片，再上传！')
+                return
+            }
+
+            for (let i = 0; i < files.length; i++) {
+                formdata.append('imgfile', files[i], files[i].name)
+                console.log(formdata)
+            }
+            
+            xhr.open('POST', 'http://127.0.0.1/uploadimg')
+            xhr.onload = function () {
+              console.log(xhr)
+                if (xhr.status == 200 && xhr.readyState == 4 ) {
+                    xhr = null
+                    alert('图片上传成功！')
+                }else{
+                    alert('eee')
+                }
+            }
+            xhr.send(formdata)
+        }
+  </script>
+</body>
+
+</html>

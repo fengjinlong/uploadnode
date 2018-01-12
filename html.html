@@ -26,14 +26,11 @@
   <script>
     var input  = document.getElementById("file");   // input file
     input.onchange = function(){
-      console.log(this)
         var file = this.files[0];
             if(!!file){
                 var reader = new FileReader();
-                // 图片文件转换为base64
                 reader.readAsDataURL(file);
                 reader.onload = function(){
-                    // 显示图片
                     document.getElementById("file_img").src = this.result;
             }
         }

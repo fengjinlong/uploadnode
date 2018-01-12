@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <input type="file" multiple id="file">
+    <input type="button" value="上传" id="upload">
+
+  </div>
+<script src="jquery-3.2.1.min.js"></script>
+  <script>
+        var fileinput = document.getElementById('file')
+
+        $('#upload').on('touchend', function () {
+          var formdata = new FormData()
+          var files = fileinput.files
+            if (!files[0]) {
+                alert('请先选择图片，再上传！')
+                return
+            }
+
+            for (let i = 0; i < files.length; i++) {
+                formdata.append('imgfile', files[i], files[i].name)
+            }
+
+          $.ajax({
+              url: 'http://127.0.0.1/uploadimg',
+              type: "POST",
+              data: JSON.stringify(formdata),
+              // processData:false,
+              dataType:"json",
+              error: function (data) {
+                  console.log("表单数据不合法!");
+              },
+              success: function (data) {
+                console.log("666666!");
+              }
+          });
+        })
+
+
+
+        // var fileinput = document.getElementById('file')
+        // button.onclick = uploadFile
+        //  function uploadFile() {
+        //      console.log('ddd')
+        //     var xhr = new XMLHttpRequest()
+        //     var formdata = new FormData()
+
+        //     var files = fileinput.files
+        //     if (!files[0]) {
+        //         alert('请先选择图片，再上传！')
+        //         return
+        //     }
+
+        //     for (let i = 0; i < files.length; i++) {
+        //         formdata.append('imgfile', files[i], files[i].name)
+        //     }
+        //     xhr.open('POST', 'http://127.0.0.1/uploadimg')
+        //     xhr.onload = () => {
+        //       console.log(xhr)
+        //         if (xhr.status === 200 && xhr.responseText === 'success') {
+        //             xhr = null
+        //             alert('图片上传成功！')
+        //         }
+        //     }
+        //     xhr.send(formdata)
+        // }
+  </script>
+</body>
+
+</html>

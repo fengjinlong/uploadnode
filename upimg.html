@@ -12,13 +12,6 @@
   </style>
 </head>
 <body>
-  <!-- <form action="http://127.0.0.1/upload" enctype="multipart/form-data" method="post">
-    <input type="text" name="name">
-    <input type="file"name="pic">
-    <button type="sublime">btn</button>
-  </form> -->
-
-
   <input id="file" type="file" name="file">
 
   <script>
@@ -28,7 +21,7 @@ input.onchange = function(){
     var file = this.files[0];
         if(!!file){
             var reader = new FileReader();
-            reader.readAsBinaryString(file);
+            reader.readAsArrayBuffer(file);
             reader.onload = function(){
                 var binary = this.result;
                 upload(binary);
@@ -40,7 +33,7 @@ input.onchange = function(){
 function upload(binary){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://127.0.0.1/upload");
-    xhr.overrideMimeType("application/octet-stream");
+    // xhr.overrideMimeType("application/octet-stream");
     //直接发送二进制数据
     if(xhr.sendAsBinary){
         xhr.sendAsBinary(binary);
